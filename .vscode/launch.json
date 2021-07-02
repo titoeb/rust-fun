@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug: Hello World",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceRoot}/hello_world/target/debug/hello_world",
+            "args": [],
+            "cwd": "${workspaceRoot}",
+        }
+    ]
+}

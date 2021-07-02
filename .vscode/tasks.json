@@ -1,0 +1,30 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "cargo build hello world.",
+            "type": "shell",
+            "command": "cd hello_world && cargo build",
+            "args": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "cargo run",
+            "type": "shell",
+            "command": "cd hello_world && cargo",
+            "args": [
+                "run"
+                // "--release",
+                // "--",
+                // "arg1"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
