@@ -8,6 +8,14 @@
             "program": "${workspaceRoot}/hello_world/target/debug/hello_world",
             "args": [],
             "cwd": "${workspaceRoot}",
+        },
+        {
+            "name": "Debug: stack_and_heap",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceRoot}/stack_and_heap/target/debug/stack_and_heap",
+            "args": [],
+            "cwd": "${workspaceRoot}",
         }
     ]
 }

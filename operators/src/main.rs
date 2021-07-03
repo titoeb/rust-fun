@@ -25,7 +25,6 @@ fn operators() {
     println!("2^10 = {}", two_to_10);
 
     // logical
-
     let pi_less_4 = std::f64::consts::PI < 42.0; // This should be true.
 
     // > <= >= ==
