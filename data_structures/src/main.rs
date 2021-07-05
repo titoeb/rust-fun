@@ -174,10 +174,56 @@ fn arrays() {
     }
 }
 
+fn use_slice(slice: &mut [i32]) {
+    for elem in slice {
+        *elem += 1;
+    }
+}
+
+fn slices() {
+    let mut data = [1, 2, 3, 4, 5];
+    use_slice(&mut data[1..4]);
+    println!("{:?}", data);
+}
+
+fn sum_product_and_difference(x: i32, y: i32) -> (i32, i32, i32) {
+    return (x + y, x * y, x - y);
+}
+
+fn tuples() {
+    // Let's see you we can handle tuples
+    let x: i32 = 2;
+    let y: i32 = 1;
+
+    // There we get our first tuple
+    let test = sum_product_and_difference(x, y);
+
+    // You can print it like an arary.
+    println!("{:?}", test);
+
+    // You can can access the individual member of the tuple
+    // with the `.` operator.
+    println!("{}+{}={}", x, y, test.0);
+
+    // Finally, you can also use destructuring to get the individual
+    // variables of a function.
+    let (a, b, c) = test;
+
+    let sp2 = sum_product_and_difference(4, 7);
+    let combined = (test, sp2);
+    println!("{:?}", combined);
+    let my_double_tuple = ((1), (2, 3), (4, 5, 5));
+    println!("{}", (my_double_tuple.1).0);
+
+    let ((d), (e, f), (g, h, j)) = my_double_tuple;
+}
+
 fn main() {
     structs();
     enums();
     unions();
     option_t();
     arrays();
+    slices();
+    tuples();
 }
