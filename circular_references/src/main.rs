@@ -50,5 +50,4 @@ fn main() {
     for c in john.courses(platform){
         println!("John is taking {}", c);
     }
-
 }
