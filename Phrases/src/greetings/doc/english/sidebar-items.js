@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["goodbye","Say goodbye to someone."],["hello","Greet someone you have met."]]});
