@@ -6,10 +6,23 @@ use std::fmt::Display;
 use std::fmt::{Debug, Formatter, Result as FmtResult};
 use std::str::Utf8Error;
 
+#[derive(Debug)]
 pub struct Request<'buf> {
     path: &'buf str,
     query_string: Option<QueryString<'buf>>,
     method: Method,
+}
+
+impl<'buf> Request<'buf> {
+    pub fn path(&'buf self) -> &str {
+        &self.path
+    }
+    pub fn method(&self) -> &Method {
+        &self.method
+    }
+    pub fn query_string(&self) -> Option<&QueryString> {
+        self.query_string.as_ref()
+    }
 }
 
 impl<'buf> TryFrom<&'buf [u8]> for Request<'buf> {

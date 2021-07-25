@@ -1,10 +1,14 @@
 mod http;
 mod server;
-use http::Request;
+mod website_handler;
 use server::Server;
+use std::env;
+use website_handler::WebsiteHandler;
 
 fn main() {
     // Initiate http server.
     let server = Server::new("127.0.0.1:7777".to_string());
-    server.run();
+    let default_path = format!("{}/public", env!("CARGO_MANIFEST_DIR"));
+    let public_path = env::var("PUBLIC_PATH").unwrap_or(default_path);
+    server.run(WebsiteHandler::new(public_path));
 }
