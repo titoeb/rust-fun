@@ -2,10 +2,6 @@ use std::env;
 use std::error::Error;
 use std::fs;
 
-fn usage(file_name: &String) -> String {
-    format!("USAGE: {} <query-string> <file-name>", file_name)
-}
-
 pub struct Config {
     pub query: String,
     pub filename: String,
@@ -13,15 +9,17 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(args: &[String]) -> Result<Self, String> {
-        if args.len() < 3 {
-            return Err(format!("Too few arguments provided\n{}", usage(&args[0])));
-        }
-
-        // Safely extract string and filename,
-        // show usage pattern if on of them does not exist.
-        let query = args[1].clone();
-        let filename = args[2].clone();
+    pub fn new(mut args: std::env::Args) -> Result<Self, &'static str> {
+        args.next();
+        let query = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a query string"),
+        };
+        let filename = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a filename"),
+        };
+        println!("{}", filename);
         let case_sensitive = env::var("CASE_INSENSITIVE").is_err();
 
         Ok(Config {
@@ -50,13 +48,10 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 }
 
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    let mut found_matches: Vec<&'a str> = Vec::new();
-    for line in contents.lines() {
-        if line.contains(query) {
-            found_matches.push(line);
-        }
-    }
-    found_matches
+    contents
+        .lines()
+        .filter(|line| line.contains(query))
+        .collect()
 }
 pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     let query = query.to_lowercase();
