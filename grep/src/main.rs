@@ -7,7 +7,7 @@ fn main() {
     // Collect input arguments
     let args: Vec<String> = env::args().collect();
     let config = Config::new(&args).unwrap_or_else(|err| {
-        println!(
+        eprintln!(
             "The following problem occured when parsing the arguments:\n{}",
             err
         );
@@ -15,7 +15,7 @@ fn main() {
     });
 
     if let Err(err) = grep::run(config) {
-        println!("Execution failed with: {:?}", err);
+        eprintln!("Execution failed with: {:?}", err);
         process::exit(1);
     };
 }
