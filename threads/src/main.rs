@@ -1,20 +1,26 @@
+use std::sync::Arc;
 use std::thread;
-use std::time;
 
+fn my_thread_fun(thread_num: usize, my_data: Arc<Vec<i32>>) -> i32 {
+    let my_data_point = my_data[thread_num];
+    println!(
+        "I am thread {} and my data is {}",
+        thread_num, my_data_point
+    );
+    my_data_point
+}
 fn main() {
+    //let large_data: Vec<i32> = (1..=100).rev().collect();
+    let large_data = Arc::new((1..=100).rev().collect());
+    let mut handles = vec![];
 
-    let handle = thread::spawn(|| {
-        for _ in 1..10{
-            print!("+");
-            thread::sleep(time::Duration::from_millis(500));
-        }
-    });
-    
-
-    for _ in 1..10{
-        print!("_");
-        thread::sleep(time::Duration::from_millis(300));
+    for thread_num in 0..10 {
+        let my_large_data: Arc<Vec<i32>> = Arc::clone(&large_data);
+        let handle = thread::spawn(move || my_thread_fun(thread_num, my_large_data));
+        handles.push(handle);
     }
-    println!();
-    handle.join();
+
+    for handle in handles {
+        println!("Return value was: {}", handle.join().unwrap());
+    }
 }
