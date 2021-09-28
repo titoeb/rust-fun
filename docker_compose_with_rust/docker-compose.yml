@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  dev:
+    build: .
+    volumes:
+      - ./hello-world:/hello-world
+    environment:
+      - USER=TIM
